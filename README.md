@@ -1,28 +1,5 @@
-<p align="center">
-    <img src="https://avatars3.githubusercontent.com/u/47700582?s=70&v=4" width="150">
-    <br>The best note-taking application.
-</p>
-<p align="center">
-    <a href="https://perfectnote.org/" target="_blank"><img src="https://travis-ci.org/perfectnote/api.png?branch=master"></a>
-    <a href="https://perfectnote.org/" target="_blank"><img src="https://github-size-badge.herokuapp.com/perfectnote/api.svg"></a>
-	<a href="https://perfectnote.org/" target="_blank"><img src="http://hits.dwyl.com/perfectnote/api.svg"></a>
-    <br>
-</p>
+<a href="https://travis-ci.org/perfectnote/api"><img src="https://img.shields.io/travis/perfectnote/api.svg?style=flat-square"/></a>
+<a href="https://david-dm.org/perfectnote/api"><img src="https://david-dm.org/perfectnote/api/status.svg?style=flat-square"/></a>
+<a href="https://david-dm.org/perfectnote/api?type=dev"><img src="https://david-dm.org/perfectnote/api/dev-status.svg?style=flat-square"/>
 
-## Features
-
-- ⚡️ **Cool Feature**: Description of this awesome and elegant feature that makes perfectnote perfect.
-- ⚡️ **Cool Feature**: Description of this awesome and elegant feature that makes perfectnote perfect.
-- ⚡️ **Cool Feature**: Description of this awesome and elegant feature that makes perfectnote perfect.
-
-## Links
-
-- [Website](https://perfectnote.org/ "Website")
-- [Documentation](https://docs.perfectnote.org/ "Documentation")
-- [Github](https://github.com/perfectnote/api "Github")
-
-## Installation
-
-```bash
-git clone https://github.com/perfectnote/api.git
-```
+# PerfectNote API

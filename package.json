@@ -1,9 +1,12 @@
 {
   "name": "perfectnote-api",
   "version": "0.0.1",
-  "description": "PerfectNote's API",
+  "description": "PerfectNote's API, built with NodeJS, Express, and MongoDB.",
   "main": "./src/index.js",
-  "repository": "git@github.com:perfectnote/api.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cringiest/grumpy.git"
+  },
   "author": "PerfectNote",
   "license": "GPL-3.0",
   "private": false,
@@ -16,6 +19,11 @@
     "url": "https://github.com/perfectnote/api/issues"
   },
   "homepage": "https://github.com/perfectnote/api",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.7"
+  },
   "devDependencies": {
     "@types/node": "^11.9.5",
     "eslint": "^5.14.1",
