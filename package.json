@@ -21,8 +21,13 @@
   "homepage": "https://github.com/perfectnote/api",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "express": "^4.16.4",
-    "mongoose": "^5.5.7"
+    "express-bearer-token": "^2.4.0",
+    "grumpy": "^0.1.1",
+    "helmet": "^3.18.0",
+    "mongoose": "^5.5.7",
+    "node-fetch": "^2.5.0"
   },
   "devDependencies": {
     "@types/node": "^11.9.5",
