@@ -19,6 +19,11 @@
     "url": "https://github.com/perfectnote/api/issues"
   },
   "homepage": "https://github.com/perfectnote/api",
+  "scripts": {
+    "start": "node src/index.ts",
+    "dev": "nodemon src/index.ts",
+    "generate": "plop"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -32,6 +37,8 @@
   "devDependencies": {
     "@types/node": "^11.9.5",
     "eslint": "^5.14.1",
+    "nodemon": "^1.19.0",
+    "plop": "^2.3.0",
     "prettier": "^1.17.0",
     "tslint": "^5.13.0",
     "tslint-config-typings": "^0.3.1",
