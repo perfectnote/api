@@ -45,7 +45,7 @@ module.exports = (plop) => {
         type: "append",
         path: "src/api/v1/api.js",
         pattern: `/* PLOP_INJECT_ENDPOINTS */`,
-        template: `  router.{{lowerCase type}}("{{endpoint}}", require("{{pathCase filePath}}.js"));`,
+        template: `  router.{{lowerCase type}}("/{{endpoint}}", require("./{{pathCase filePath}}.js").default);`,
       },
     ],
   });
