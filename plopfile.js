@@ -10,7 +10,7 @@ module.exports = (plop) => {
         name: "filePath",
         // Prompt to display on command line
         message:
-          "Enter the path where the file will be saved to (don't include neither the .ts extension nor api/v1):",
+          "Enter the path where the file will be saved to (don't include neither the .js extension nor api/v1):",
       },
       {
         // Raw text input
@@ -36,16 +36,16 @@ module.exports = (plop) => {
         // Add a new file
         type: "add",
         // Path for the new file
-        path: "src/api/v1/{{pathCase filePath}}.ts",
+        path: "src/api/v1/{{pathCase filePath}}.js",
         // Handlebars template used to generate content of new file
-        templateFile: "plop-templates/endpoint.ts.hbs",
+        templateFile: "plop-templates/endpoint.js.hbs",
       },
       {
         // Append to existing file
         type: "append",
-        path: "src/api/v1/api.ts",
+        path: "src/api/v1/api.js",
         pattern: `/* PLOP_INJECT_ENDPOINTS */`,
-        template: `  router.{{lowerCase type}}("{{endpoint}}", require("{{pathCase filePath}}.ts"));`,
+        template: `  router.{{lowerCase type}}("{{endpoint}}", require("{{pathCase filePath}}.js"));`,
       },
     ],
   });
