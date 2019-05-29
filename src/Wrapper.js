@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import express from 'express';
 import apiSetup from './api/v1/api';
@@ -13,8 +12,8 @@ module.exports = class Wrapper {
 
   start(port = this.options.port || process.env.PORT || 5000) {
     app.disable('x-powered-by');
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(require('body-parser').json());
+    app.use(require('body-parser').urlencoded({ extended: true }));
     app.use(require('express-bearer-token')());
 
     // Setup API
