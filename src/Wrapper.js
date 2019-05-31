@@ -1,20 +1,24 @@
 import dotenv from 'dotenv';
+
 import express from 'express';
 import apiSetup from './api/v1/api';
+
+import bodyParser from 'body-parser';
+import tokenBearer from 'express-bearer-token';
 
 dotenv.config();
 const app = express();
 
-module.exports = class Wrapper {
-  constructor(options) {
+export class Wrapper {
+  constructor(options = {}) {
     this.options = options;
   }
 
   start(port = this.options.port || process.env.PORT || 5000) {
     app.disable('x-powered-by');
-    app.use(require('body-parser').json());
-    app.use(require('body-parser').urlencoded({ extended: true }));
-    app.use(require('express-bearer-token')());
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(tokenBearer());
 
     // Setup API
     app.use('/api/v1', apiSetup(express.Router()));
