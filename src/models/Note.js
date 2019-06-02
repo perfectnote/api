@@ -5,5 +5,5 @@ const NoteSchema = new Schema({
   description: String,
 });
 
-const Note = model('Note', PostSchema);
+const Note = model('Note', NoteSchema);
 export default Note;

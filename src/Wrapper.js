@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import apiSetup from './api/v1/api';
 
+import log from './utils/Logger.js';
 import connect from './db/connection.js';
 import { Post } from './models';
-import { log, logError } from './utils/Logger.js';
 
 import bodyParser from 'body-parser';
 import tokenBearer from 'express-bearer-token';
@@ -15,11 +15,10 @@ dotenv.config();
 const app = express();
 const db = connect(process.env.DB_URL);
 
-export class Wrapper {
+export default class Wrapper {
   constructor(options = {}) {
     this.options = options;
     this.log = log;
-    this.logError = logError;
   }
 
   start(port = this.options.port || process.env.PORT || 5000) {
