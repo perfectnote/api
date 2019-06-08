@@ -1,8 +1,10 @@
 import { Schema, model } from 'mongoose';
 
 const NoteSchema = new Schema({
-  title: String,
+  _id: String,
+  name: String,
   description: String,
+  owner: String
 });
 
 const Note = model('Note', NoteSchema);
