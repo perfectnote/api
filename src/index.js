@@ -1,4 +1,4 @@
-import API from './Wrapper.js';
-const wrapper = new API({ port: process.env.PORT });
+import API from './API.js';
+const api = new API({ port: process.env.PORT });
 
-wrapper.start();
+api.start();
