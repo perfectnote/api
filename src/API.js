@@ -8,10 +8,10 @@ import tokenBearer from 'express-bearer-token';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import connect from './db/connection.js';
+import connect from './utils/db/connection.js';
 import globalRoute from './controllers/index.js';
 import testRoute from './controllers/test.js';
-import log from './utils/Logger.js';
+import log from './utils/logger/index.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
