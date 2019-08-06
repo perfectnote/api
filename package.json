@@ -22,10 +22,11 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir dist",
-    "serve": "node dist/index.js",
-    "generate": "plop"
+    "serve": "node dist/index.js"
   },
   "dependencies": {
+    "apollo-server-express": "^2.8.1",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -33,6 +34,8 @@
     "express": "^4.17.1",
     "express-bearer-token": "^2.4.0",
     "express-rate-limit": "^5.0.0",
+    "graphql": "^14.4.2",
+    "graphql-import": "^0.7.1",
     "grumpy": "^0.2.3",
     "helmet": "^3.20.0",
     "mongoose": "^5.6.8",
@@ -45,6 +48,7 @@
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@types/node": "^12.6.9",
+    "eslint": "^6.1.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2"
   },

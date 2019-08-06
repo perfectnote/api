@@ -1,5 +1,2 @@
-import NoteModel from './Note.js';
-
-export default {
-  Post: NoteModel
-}
+export { default as Post } from './Note';
+export { default as User } from './User';
