@@ -69,9 +69,11 @@ export const authorizeTFA = async (_, args, { user }) => {
     const verified = totp.verify({ secret: tfa, encoding: 'base32', token: args.token, window: 2 });
     if (!verified) throw new AuthenticationError('Invalid token');
   }
-  return jsonwebtoken.sign({ id: user.id, name, username }, process.env.JWT_SECRET, {
-    expiresIn: user.remember ? '1y' : '1d',
-  });
+  return {
+    token: jsonwebtoken.sign({ id: user.id, name, username }, process.env.JWT_SECRET, {
+      expiresIn: user.remember ? '1y' : '1d',
+    }),
+  };
 };
 
 const generateBackupCodes = () => {
