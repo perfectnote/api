@@ -20,7 +20,7 @@ dotenv.config();
 const app = express();
 const db = connect(
   process.env.DB_URL,
-  { useNewUrlParser: true }
+  { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }
 );
 
 export default class Wrapper {

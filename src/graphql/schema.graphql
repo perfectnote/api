@@ -1,9 +1,14 @@
 type Query {
   helloworld: String
+  generateSecret: TFAPayload
+  getBackupCodes: [BackupCode]
 }
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!, remember: Boolean): AuthPayload
+  authorizeTFA(token: String!, backupCode: Boolean): String!
+  enableTFA(secret: String!, token: String!): [BackupCode!]!
+  disableTFA(token: String!): ID!
 }
 type AuthPayload {
   token: String
@@ -14,4 +19,12 @@ type User {
   name: String!
   email: String!
   username: String!
+}
+type TFAPayload {
+  secret: String!
+  qrcode: String!
+}
+type BackupCode {
+  code: String!
+  used: Boolean!
 }
