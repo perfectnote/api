@@ -21,8 +21,6 @@
   "homepage": "https://github.com/perfectnote/api",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "build": "babel src --out-dir dist",
-    "serve": "node dist/index.js",
     "clean": "prettier --write \"src/*.js\""
   },
   "dependencies": {
