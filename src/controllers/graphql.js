@@ -15,7 +15,6 @@ const typeDefs = importSchema(path.join(__dirname, '..', 'graphql', 'schema.grap
 
 const resolvers = {
   Query: {
-    helloworld: (_, _args, { user }) => user.username,
     generateSecret,
     getBackupCodes,
   },

@@ -1,5 +1,4 @@
 type Query {
-  helloworld: String
   """
   **Requires authentication.**
 
