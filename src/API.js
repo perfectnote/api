@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import tokenBearer from 'express-bearer-token';
-import jwt from 'express-jwt';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
