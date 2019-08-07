@@ -7,7 +7,7 @@ const typeDefs = importSchema(path.join(__dirname, '..', 'graphql', 'schema.grap
 
 const resolvers = {
   Query: {
-    helloworld: () => 'Hello World!',
+    helloworld: (_, _args, { user }) => user.username,
   },
   Mutation: {
     signup: Signup,
@@ -15,6 +15,12 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({
+    user: req.user,
+  }),
+});
 
 export default (app) => server.applyMiddleware({ app });

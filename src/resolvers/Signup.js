@@ -1,5 +1,6 @@
 import { UserInputError } from 'apollo-server-express';
 import { hash as hashPassword } from 'bcrypt';
+import jsonwebtoken from 'jsonwebtoken';
 import { mongo } from 'mongoose';
 import { User } from '../models';
 
@@ -14,18 +15,21 @@ export default async (_, args) => {
     Date.now()
       .toString(16)
       .slice(-6);
-
-  var user = {
+  let user = await User.create({
     _id: new mongo.ObjectId(),
     name: args.name,
     email: args.email,
     password,
     username,
-  };
+  });
 
-  let response = await User.create(user);
+  let token = jsonwebtoken.sign(
+    { id: user._id, name: user.name, username: user.username },
+    process.env.JWT_SECRET,
+    { expiresIn: '1y' }
+  );
 
-  return { token: 'test', user: response };
+  return { token, user };
 };
 
 function isEmailValid(email) {

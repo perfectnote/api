@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import tokenBearer from 'express-bearer-token';
+import jwt from 'express-jwt';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -12,6 +13,8 @@ import globalRoute from './controllers/index.js';
 import testRoute from './controllers/test.js';
 import connect from './utils/db/connection.js';
 import log from './utils/logger/index.js';
+import { Strategy, ExtractJwt } from 'passport-jwt';
+import passport from 'passport';
 
 dotenv.config();
 
@@ -47,6 +50,27 @@ export default class Wrapper {
         },
       })
     );
+
+    // Add JWT strategy to Passport
+    passport.use(
+      new Strategy(
+        {
+          secretOrKey: process.env.JWT_SECRET,
+          jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        },
+        (payload, done) => done(null, payload)
+      )
+    );
+
+    passport.initialize();
+
+    app.use('/graphql', (req, res, next) => {
+      passport.authenticate('jwt', { session: false }, (_err, user) => {
+        if (user) req.user = user;
+
+        next();
+      })(req, res, next);
+    });
 
     setupGraphql(app);
     app.use('/test', testRoute);
