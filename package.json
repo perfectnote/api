@@ -21,12 +21,14 @@
   "homepage": "https://github.com/perfectnote/api",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "clean": "prettier --write \"src/*.js\""
+    "clean": "prettier --write \"src/*.js\"",
+    "test": "mocha --require core-js/stable --require regenerator-runtime/runtime --require @babel/register --require test/it-helper.js test/*.test.js"
   },
   "dependencies": {
     "apollo-server-express": "^2.8.1",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "chai-as-promised": "^7.1.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
@@ -51,10 +53,17 @@
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "@types/node": "^12.6.9",
+    "chai": "^4.2.0",
+    "core-js": "^3.1.4",
     "eslint": "^6.1.0",
+    "mocha": "^6.2.0",
+    "mocha-prepare": "^0.1.0",
+    "mongo-unit": "^1.4.4",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": ">=8.0.0"

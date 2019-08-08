@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import express from 'express';
 import tokenBearer from 'express-bearer-token';
 import rateLimit from 'express-rate-limit';
@@ -14,8 +13,6 @@ import connect from './utils/db/connection.js';
 import log from './utils/logger/index.js';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
-
-dotenv.config();
 
 const app = express();
 const db = connect(
