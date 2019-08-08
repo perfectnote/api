@@ -13,30 +13,30 @@ export const generateSecret = async (_, _args, { user }) => {
   return { secret: secret.base32, qrcode };
 };
 
-export const enableTFA = async (_, args, { user }) => {
+export const enableTFA = async (_, {secret, token}, { user }) => {
   if (!user) throw new AuthenticationError('Must be logged in');
 
   const verified = totp.verify({
-    secret: args.secret,
+    secret,
     encoding: 'base32',
-    token: args.token,
+    token,
     window: 2,
   });
   if (!verified) throw new UserInputError('Invalid token');
 
   const backupCodes = generateBackupCodes();
 
-  await User.updateOne({ _id: user.id }, { tfa: args.secret, backupCodes });
+  await User.updateOne({ _id: user.id }, { tfa: secret, backupCodes });
 
   return backupCodes;
 };
 
-export const disableTFA = async (_, args, { user }) => {
+export const disableTFA = async (_, {token}, { user }) => {
   if (!user) throw new AuthenticationError('Must be logged in');
 
-  var { tfa } = await User.findById(user.id, 'tfa');
+  const { tfa } = await User.findById(user.id, 'tfa');
 
-  const verified = totp.verify({ secret: tfa, encoding: 'base32', token: args.token, window: 2 });
+  const verified = totp.verify({ secret: tfa, encoding: 'base32', token, window: 2 });
   if (!verified) throw new UserInputError('Invalid token');
 
   await User.updateOne({ _id: user.id }, { tfa: undefined, backupCodes: undefined });
@@ -47,26 +47,26 @@ export const disableTFA = async (_, args, { user }) => {
 export const getBackupCodes = async (_, _args, { user }) => {
   if (!user) throw new AuthenticationError('Must be logged in');
 
-  var { backupCodes } = await User.findById(user.id, 'backupCodes');
+  const { backupCodes } = await User.findById(user.id, 'backupCodes');
 
   return backupCodes;
 };
 
-export const authorizeTFA = async (_, args, { user }) => {
+export const authorizeTFA = async (_, {backupCode, token}, { user }) => {
   if (!user) throw new AuthenticationError('Must have gone through the first factor auth');
   if (!user.requiresTFA) throw new UserInputError('User does not need to authorize TFA');
 
-  if (args.backupCode) {
+  if (backupCode) {
     // TODO maybe it's possible to do everything in one query?
-    var { backupCodes, name, username } = await User.findById(user.id, 'backupCodes name username');
-    var codeIndex = backupCodes.findIndex((code) => code.code === args.token && !code.used);
+    let { backupCodes, name, username } = await User.findById(user.id, 'backupCodes name username');
+    const codeIndex = backupCodes.findIndex((code) => code.code === token && !code.used);
     if (codeIndex === -1) throw new AuthenticationError('Invalid backup code');
     backupCodes[codeIndex].used = true;
     await User.updateOne({ _id: user.id }, { backupCodes });
   } else {
-    var { tfa, name, username } = await User.findById(user.id, 'tfa name username');
+    const { tfa, name, username } = await User.findById(user.id, 'tfa name username');
 
-    const verified = totp.verify({ secret: tfa, encoding: 'base32', token: args.token, window: 2 });
+    const verified = totp.verify({ secret: tfa, encoding: 'base32', token, window: 2 });
     if (!verified) throw new AuthenticationError('Invalid token');
   }
   return {
@@ -78,15 +78,15 @@ export const authorizeTFA = async (_, args, { user }) => {
 
 const generateBackupCodes = () => {
   const gen = (length) => {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    var charactersLength = characters.length;
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   };
-  var backupCodes = [];
+  const backupCodes = [];
   for (let i = 0; i < 10; i++) {
     backupCodes.push({ code: gen(8), used: false });
   }
