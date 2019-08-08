@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "_id": "5d4c05af6b6f6c4c74184cc8",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "password": "$2b$10$d0GwwjPGoLmuAqTrjJ2vX.y35YNRG.czrOchZT1FYYyAQBCE42CQG",
+      "username": "jane.doe-f63767",
+      "backupCodes": null,
+      "__v": 0,
+      "tfa": null
+    }
+  ]
+}
