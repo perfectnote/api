@@ -120,6 +120,8 @@ type AuthPayload {
     ```
   """
   token: String
+  "Returns true if clients needs to get another token from the `mutation authorizeTFA` endpoint after login."
+  requiresTFA: Boolean
   "The user that is logged in."
   user: User
 }

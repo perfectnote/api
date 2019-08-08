@@ -27,5 +27,5 @@ export const login = async (email, password, remember) => {
     );
   }
 
-  return { token, user };
+  return { token, requiresTFA: !!user.tfa, user };
 };
