@@ -8,7 +8,7 @@ import { isLoggedIn } from '../utils/auth';
 export const generateSecret = async (payload) => {
   if (!(await isLoggedIn(payload))) new AuthenticationError('Must be logged in');
 
-  const secret = generateTFASecret({ name: 'PerfectNote' });
+  const secret = generateTFASecret({ name: `${payload.name}:PerfectNote` });
   const qrcode = await QRCode.toDataURL(secret.otpauth_url);
 
   return { secret: secret.base32, qrcode };
