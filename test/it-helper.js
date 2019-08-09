@@ -9,7 +9,7 @@ dotenv.config();
 
 prepare((done) => {
   chai.use(chaiAsPromised);
-  process.env.JWT_TOKEN = 'test_token';
+  process.env.JWT_SECRET = 'test_token';
   start().then((testMongoUrl) => {
     process.env.DB_URL = testMongoUrl;
     console.log('Connecting to mocked database...');
