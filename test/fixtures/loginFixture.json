@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "_id": "5d4c05af6b6f6c4c74184cc8",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "password": "$2b$10$d0GwwjPGoLmuAqTrjJ2vX.y35YNRG.czrOchZT1FYYyAQBCE42CQG",
+      "username": "jane-doe-f63767",
+      "backupCodes": null,
+      "__v": 0,
+      "tfa": null
+    },
+    {
+      "_id": "5d4d496bf11d944e28c574a8",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "$2b$10$kBaFe9mb5eXgtP5MK2JF5OZTnRxrXQiYaFmKWNk.FxJ9vq1I3/mla",
+      "username": "john-doe-e6cb69",
+      "backupCodes": [
+        {
+          "code": "KU64Y6R5",
+          "used": true
+        },
+        {
+          "code": "PLLPCCGD",
+          "used": false
+        },
+        {
+          "code": "0PHNOCIA",
+          "used": false
+        },
+        {
+          "code": "SFFZTXPP",
+          "used": false
+        },
+        {
+          "code": "VYKCR5DH",
+          "used": false
+        },
+        {
+          "code": "KQIBT4TT",
+          "used": false
+        },
+        {
+          "code": "X89Q9COS",
+          "used": false
+        },
+        {
+          "code": "BR5QBZDZ",
+          "used": false
+        },
+        {
+          "code": "7MO9BL73",
+          "used": false
+        },
+        {
+          "code": "MN03HKGC",
+          "used": false
+        }
+      ],
+      "__v": 0,
+      "tfa": "JBUXI42XH5QUEORJLM4HIQSEOVNSSVDMIN4U4ORFKFIXG7JUGRVQ"
+    }
+  ]
+}
