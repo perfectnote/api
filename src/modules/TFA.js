@@ -1,12 +1,11 @@
-import speakeasy from 'speakeasy';
 import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import QRCode from 'qrcode';
+import speakeasy from 'speakeasy';
 import { User } from '../models';
-import jsonwebtoken from 'jsonwebtoken';
 import { isLoggedIn } from '../utils/auth';
 
 export const generateSecret = async (payload) => {
-  if (!(await isLoggedIn(payload))) new AuthenticationError('Must be logged in');
+  if (!(await isLoggedIn(payload))) throw new AuthenticationError('Must be logged in');
 
   const secret = speakeasy.generateSecret({ name: `${payload.name}:PerfectNote` });
   const qrcode = await QRCode.toDataURL(secret.otpauth_url);
@@ -15,7 +14,10 @@ export const generateSecret = async (payload) => {
 };
 
 export const enableTFA = async (payload, secret, token) => {
-  if (!(await isLoggedIn(payload))) throw new AuthenticationError('Must be logged in');
+  var user = await isLoggedIn(payload, 'tfa');
+  if (!user) throw new AuthenticationError('Must be logged in');
+
+  if (!!user.tfa) throw new UserInputError('User already has TFA enabled');
 
   const verified = speakeasy.totp.verify({
     secret,
@@ -36,6 +38,8 @@ export const disableTFA = async (payload, token) => {
   var user = await isLoggedIn(payload, 'tfa');
   if (!user) throw new AuthenticationError('Must be logged in');
 
+  if (!user.tfa) throw new UserInputError('TFA is not enabled');
+
   const verified = speakeasy.totp.verify({
     secret: user.tfa,
     encoding: 'base32',
@@ -52,6 +56,8 @@ export const disableTFA = async (payload, token) => {
 export const getBackupCodes = async (payload) => {
   var user = await isLoggedIn(payload, 'backupCodes');
   if (!user) throw new AuthenticationError('Must be logged in');
+
+  if (!user.backupCodes) throw new UserInputError('TFA is not enabled');
 
   return user.backupCodes;
 };
