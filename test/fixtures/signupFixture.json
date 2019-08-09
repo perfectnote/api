@@ -5,7 +5,7 @@
       "name": "Jane Doe",
       "email": "jane.doe@example.com",
       "password": "$2b$10$d0GwwjPGoLmuAqTrjJ2vX.y35YNRG.czrOchZT1FYYyAQBCE42CQG",
-      "username": "jane.doe-f63767",
+      "username": "jane-doe-f63767",
       "backupCodes": null,
       "__v": 0,
       "tfa": null

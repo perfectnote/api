@@ -6,11 +6,9 @@ import mongoUnit from 'mongo-unit';
 import { signup } from '../src/modules/Signup';
 import signupFixture from './fixtures/signupFixture.json';
 
-const testMongoUrl = process.env.DB_URL;
-
 describe('modules/Signup', () => {
-  before(() => mongoUnit.initDb(testMongoUrl, signupFixture));
-  after(() => mongoUnit.drop());
+  before(() => mongoUnit.load(signupFixture));
+  after(() => mongoUnit.clean(signupFixture));
 
   it('should register a pre-defined user correctly', async () => {
     var data = await signup('john.doe@example.com', 'password123456', 'John Doe');
