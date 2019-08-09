@@ -4,6 +4,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { User } from '../models';
 
 export const login = async (email, password, remember) => {
+  email = email.toLowerCase();
   const user = await User.findOne({ email }, 'name email username password tfa');
   if (!user) throw new UserInputError('Wrong email');
 

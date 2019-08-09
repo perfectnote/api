@@ -7,11 +7,16 @@ import { User } from '../models';
 export const signup = async (email, password, name) => {
   if (!isEmailValid(email)) throw new UserInputError('Invalid email');
 
+  email = email.toLowerCase();
+
   const hashedPassword = await hashPassword(password, 10);
 
   const username = `${email.split('@')[0].replace(/\W/g, '-')}-${Date.now()
     .toString(16)
     .slice(-6)}`;
+
+  if ((await User.find({ $or: [{ email: email }, { username: username }] })).length !== 0)
+    throw new UserInputError('Duplicate email');
 
   const user = await User.create({
     _id: new mongo.ObjectId(),
