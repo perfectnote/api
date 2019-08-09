@@ -5,7 +5,5 @@ export const isLoggedIn = async (payload, fields) => {
 
   var response = await User.findById(payload.id, fields || '_id');
 
-  console.log(response);
-
   return response;
 };

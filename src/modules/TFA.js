@@ -1,4 +1,4 @@
-import { generateSecret as generateTFASecret, totp } from 'speakeasy';
+import speakeasy from 'speakeasy';
 import { AuthenticationError, UserInputError } from 'apollo-server-core';
 import QRCode from 'qrcode';
 import { User } from '../models';
@@ -8,7 +8,7 @@ import { isLoggedIn } from '../utils/auth';
 export const generateSecret = async (payload) => {
   if (!(await isLoggedIn(payload))) new AuthenticationError('Must be logged in');
 
-  const secret = generateTFASecret({ name: `${payload.name}:PerfectNote` });
+  const secret = speakeasy.generateSecret({ name: `${payload.name}:PerfectNote` });
   const qrcode = await QRCode.toDataURL(secret.otpauth_url);
 
   return { secret: secret.base32, qrcode };
@@ -17,7 +17,7 @@ export const generateSecret = async (payload) => {
 export const enableTFA = async (payload, secret, token) => {
   if (!(await isLoggedIn(payload))) throw new AuthenticationError('Must be logged in');
 
-  const verified = totp.verify({
+  const verified = speakeasy.totp.verify({
     secret,
     encoding: 'base32',
     token,
@@ -36,7 +36,12 @@ export const disableTFA = async (payload, token) => {
   var user = await isLoggedIn(payload, 'tfa');
   if (!user) throw new AuthenticationError('Must be logged in');
 
-  const verified = totp.verify({ secret: user.tfa, encoding: 'base32', token, window: 2 });
+  const verified = speakeasy.totp.verify({
+    secret: user.tfa,
+    encoding: 'base32',
+    token,
+    window: 2,
+  });
   if (!verified) throw new UserInputError('Invalid token');
 
   await User.updateOne({ _id: payload.id }, { tfa: undefined, backupCodes: undefined });
@@ -68,7 +73,7 @@ export const authorizeTFA = async (payload, backupCode, token) => {
   } else {
     var { tfa, name, username } = await User.findById(payload.id, 'tfa name username');
 
-    const verified = totp.verify({ secret: tfa, encoding: 'base32', token, window: 2 });
+    const verified = speakeasy.totp.verify({ secret: tfa, encoding: 'base32', token, window: 2 });
     if (!verified) throw new AuthenticationError('Invalid token');
   }
   return {
