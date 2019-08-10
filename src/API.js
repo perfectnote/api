@@ -6,13 +6,12 @@ import tokenBearer from 'express-bearer-token';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import passport from 'passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import setupGraphql from './controllers/graphql.js';
 import globalRoute from './controllers/index.js';
-import testRoute from './controllers/test.js';
 import connect from './utils/db/connection.js';
 import log from './utils/logger/index.js';
-import { Strategy, ExtractJwt } from 'passport-jwt';
-import passport from 'passport';
 
 const app = express();
 const db = connect(
@@ -69,7 +68,6 @@ export default class Wrapper {
     });
 
     setupGraphql(app);
-    app.use('/test', testRoute);
     app.use(globalRoute);
 
     app.listen(port, () => {
